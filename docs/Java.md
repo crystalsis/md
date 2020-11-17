@@ -216,7 +216,7 @@ HandlerMapping，初始化的时候将控制器放入IoC容器，然后将映射
 
 常见strings, hashes, lists, sets, sorted sets,bitmaps，hyperloglogs，geo，streams。
 
-![img](.\redis_encoding.jpg)
+![img](../images/redis_encoding.jpg)
 
 底层数据RealObject结构体（保存类型编码访问时间应引用计数和指向实际内存地址的引用等）
 
@@ -232,7 +232,7 @@ REDIS_ENCODING_SKIPLIST skiplist，数据量大于一定值时zset使用dict和s
 
 REDIS_ENCODING_INTSET 数量少的时候的sets，有序集合二分查找，默认512
 
-![img](.\redis_encoding_.jpg)
+![img](../images/redis_encoding_.jpg)
 
 
 
