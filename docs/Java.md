@@ -1,3 +1,9 @@
+---
+nav:
+  title: Java
+  order: 1
+---
+
 # Java
 
 ## 中级开发工程师
@@ -6,7 +12,7 @@
 
 严格来讲只支持 int 类型，byte 和 short 因为分别是 1 个字节和 2 个字节比 int 的四个字节短是可以无损转化为 int 的，char 的字符编码是无符号两个字节可以和 int 无损转化的，Byte,Short,Character,Integer 四个包装类可以自动拆箱，Enum 枚举存在 int 类型的 ordinal 序号，使用序号比较，String 类型使用 int 类型的 hashCode 比较，特殊点在于 hashCode 会出现相同的情况所以还会进一步使用 equals 对比。
 
-### SpingMVC 的注解都有什么。
+### SpingMVC 的注解都有什么
 
 其实很有意思的是@Controller 不是 Spring MVC 的注解，而是 Spring 框架本身的 IoC 容器的注解，因为他只是@Component 的别名，跟@Service 和@Repository 一样,@RestController 才是 Spring MVC 的注解。
 
@@ -34,15 +40,15 @@ String 是字符串常量，StringBuffer 是线程安全的字符串变量，Str
 
 两个对象，字符串本身就是一个对象，同时 new 操作不会重用字符串常量池，会强制创建一个对象。同时“a”+“b”形式的字符串常量相加会优化成只有一个对象，但是两个赋值的变量相加会出现三个，而且不会重复使用常量池对象，两个已经初始化过的 final 字符串相加会重复使用字符串常量池。
 
-### hashmap 怎么循环；
+### hashmap 怎么循环
 
 HashMap 可以循环 KeySet，Values 和 EntrySet，通常遍历 EntrySet 因为包含 KV，然后可以按遍历 Set 或 Collection 的方式使用 for 循环，增强型 for 循环或者 Iterator 迭代器遍历，当然如果要删除就只能用迭代器循环对迭代器操作了。
 
-### object 都有什么方法；
+### object 都有什么方法
 
 hashCode 哈希值方法，equal 判断相等的方法，toString，getClass 获取对象实例的运行时类型 Class 类，clone，wait，notify 多线程等待和唤醒
 
-### system.out(++1)，输出结果是什么。
+### system.out(++1)，输出结果是什么
 
 `System.out.print(++1)`这种形式在 Java 中是语法错误，因为不管是 postfix 形式的`i++`还是一元运算`++i`都算是值，不算变量。对于`=1;i=++i;System.out.print(i)`,常见 jvm 结果是 2，`i=i++`结果是 1，可以解释为`i++`为先赋值在自增，`++i`为先自增再赋值,字节码`i=i++`为先压栈，然后自增，然后出栈，`i=++i`为先自增再压栈再出栈，所以 IDE 会报无效果的操作。不过由于 java 只定义了`++/--`的操作，并没有定义自增自减与赋值语句一起时的行为，因此 jvm 如何处理都是符合语法的，实际开发中不应使用这种未定义的。很久很久以前，`++i`因为是原址自增，`i++`用临时变量，所以`++i`性能稍微好一丢丢，不过现在，这点优化比不过编译器的优化。
 
@@ -164,7 +170,6 @@ java1.2 开始分为四种引用类型
 7. 使用 CAS，定义静态 AtomicReference 的变量，并且初始化这个引用，使用 AtomicReference 的 get 方法获取这个实例，判断是否为空，如果为空则创建一个新实例并使用 compareAndSet 设置进去，最后返回，缺点是虽然最后返回的是同一个实例，但是可能创建多个实例。
 8. 使用单例注册列表，例如 HashMap 或者 ConcurrentHashMap，将单例批量初始化设置进去，使用时获取，即 spring 框架的做法
 9. 枚举方式，可以防御反序列化和反射，但是只能实现自己的单例。readResolve 能防御反序列化
-10.
 
 ### 介绍一下 Hashmap， 常用的数据集合，set 和 arraylist 区别
 
@@ -183,9 +188,9 @@ Map 接口是一个键值对的映射，key 不能重复，最多有一个 null�
 如果你想保证插入元素的唯一性，也就是你不想有重复值的出现，那么可以选择一个 Set 的实现类，比如 HashSet、LinkedHashSet 或者 TreeSet。所有 Set 的实现类都遵循了统一约束比如唯一性，而且还提供了额外的特性比如 TreeSet 还是一个 SortedSet，所有存储于 TreeSet 中的元素可以使用 Java 里的 Comparator 或者 Comparable 进行排序。LinkedHashSet 也按照元素的插入顺序对它们进行存储。
 如果你以键和值的形式进行数据存储那么 Map 是你正确的选择。你可以根据你的后续需要从 Hashtable、HashMap、TreeMap 中进行选择。
 
-### Redis 数据类型，
+### Redis 数据类型
 
-### Springmvc 方法返回数据格式怎么实现，她是怎么知道要返回数据格式的。
+### Springmvc 方法返回数据格式怎么实现，她是怎么知道要返回数据格式的
 
 注册的各种 HttpMessageConverter 转换的，根据 requestHeader 里的 accept 判断的
 
@@ -203,7 +208,7 @@ HandlerMapping，初始化的时候将控制器放入 IoC 容器，然后将映�
 
 异步解耦，削峰限流，消息通讯分发，分布式事务等类似类型的分布式信息同步
 
-### 多线程怎么实现，
+### 多线程怎么实现
 
 1. 线程池（Executors 静态方法（有可能创建过多线程或者堆积大量请求 OOM）、ThreadPoolExecutor（更推荐，有不同类型的 BlockingQueue）,是否实现 ThreadFactory 自定义线程工厂）
 2. 手动新线程（继承 Thread 类(直接执行)，实现 Runnable 接口（放 Thread 里执行））
@@ -231,7 +236,7 @@ REDIS_ENCODING_INTSET 数量少的时候的 sets，有序集合二分查找，�
 
 ![img](../images/redis_encoding_2.jpg)
 
-### 读写分离怎么实现，注解是什么，
+### 读写分离怎么实现，注解是什么
 
 独立的 mycat， ShardingSphere
 
@@ -389,7 +394,7 @@ where 子句条件优化，走索引
 
 强一致，最终一致
 
-### redis 雪崩怎么处理，
+### redis 雪崩怎么处理
 
 设置不一样的过期时间
 
@@ -401,7 +406,7 @@ where 子句条件优化，走索引
 
 缓存击穿，加锁，使用 redis 的 SETNX，或单独处理
 
-### mq 如何保证不被重复消费。
+### mq 如何保证不被重复消费
 
 幂等操作，查询数据库是否处理，主键约束，全局消息 ID 然后缓存，消息队列本身设置
 
